@@ -5,7 +5,7 @@
 - Edwin Dominguez
 
 # Project Description
-This project analyzes current CLash Royale trends using data such as popular decks, card usage rates and win percentages. We want to understand....
+This project analyzes current Clash Royale trends using data such as popular decks, card usage rates and win percentages. We want to understand how the meta is evovolved over time and got to where it is today. This data and analysis will allow us to identify which strategies are currently most effective in the game. By extracting and analyzing data from the Clash Royale API, we can and will have the current trends of the game to provide insights into the competitive landscape of Clash Royale.
 
 # Project Outline/Plan
 - Define the specific Clash Royale trends we want to study
