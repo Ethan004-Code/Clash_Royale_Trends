@@ -20,3 +20,7 @@ Using the Clash Royale API, I will request data from currrent leaderboards, eith
 Since the data requested will be in format .json, I will extract and clean up the data and store it in .txt format with only important or relevant information for the analysis.
 
 # Data Analysis and Visualization Plan (written by Author #2)
+Using the collected and cleaned data, I would analyze it to identify trends in card usage, deck popularity and win rates.
+I would compare different decks and cards to determine which effective stratfegies is the current clash royale meta.
+
+For visualization, I will use graghs such as bar charts to display the most used cards and decks, line graghs to show changes and pie charts to represent distribution of card usage.
