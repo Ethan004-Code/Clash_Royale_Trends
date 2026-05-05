@@ -1,6 +1,9 @@
 # --- IGNORE ---
 data/*
 api_key.txt
+api_key_mac.txt
+/.idea/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

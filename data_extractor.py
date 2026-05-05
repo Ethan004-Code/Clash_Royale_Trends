@@ -31,22 +31,15 @@ class DataExtractor:
         response = requests.get(cls.base_url+endpoint, params=query)
         if cls.check_status_code(response):
             return None
-        ''' testing only, DELETE LATER
-        filename = "data/cards_info.json"
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, "w") as f:
-            r : dict = response.json()
-            p: str = json.dumps(r, indent=4)
-            f.write(p)
-        '''
         data = response.json()
         # just returning id but so that I can easily check if the card is a hero/champion, and also get the name of the card for easier analysis
         for card in data['items']:
+            icons = card['iconUrls']
             cls.cards_info[card['id']] = {
                 'name':         card['name'], 
-                'regular':      card['iconUrls']['medium'] if card['rarity'] != "champion" else 'N/A',
-                'evo':          card['iconUrls']['evolutionMedium'] if "evolutionMedium" in card['iconUrls'].keys() else 'N/A',
-                'hero_champion':card['iconUrls']['heroMedium'] if "heroMedium" in card['iconUrls'].keys() else card['iconUrls']['medium'] if card['rarity'] == "champion" else 'N/A',
+                'regular':      icons['medium'] if card['rarity'] != "champion" else 'N/A',
+                'evo':          icons['evolutionMedium'] if "evolutionMedium" in icons.keys() else 'N/A',
+                'hero/champion':icons['heroMedium'] if "heroMedium" in icons.keys() else icons['medium'] if card['rarity'] == "champion" else 'N/A',
                 'elixir':       card['elixirCost'] if 'elixirCost' in card.keys() else 'N/A' # forgor about mirror
                 }
 
@@ -58,16 +51,11 @@ class DataExtractor:
         response = requests.get(cls.base_url+endpoint, params=query, timeout=30)
         if cls.check_status_code(response):
             return None
+        print(f"Got top global players: {len(response.json()['items'])}")
         data = response.json()
         player_tags = []
         for player in data['items']:
             player_tags.append(player['tag'].replace('#', '%23'))
-        ''' for testing, can use if we want to see the list
-        filename = "data/top_1000_players.json"
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, "w") as f:
-            json.dump(player_tags, f)
-        '''
         return player_tags
 
     # method to get complete battle logs for a player
@@ -77,14 +65,6 @@ class DataExtractor:
         response = requests.get(cls.base_url+endpoint, params=query, timeout=30)
         if cls.check_status_code(response):
             return None
-        ''' for testing, visualize the battle logs for one player
-        filename = f"data/battle_logs/{player_tag}.json"
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, "w") as f:
-            r : dict = response.json()
-            p: str = json.dumps(r, indent=4)
-            f.write(p)
-        #'''
         return response.json()
 
     '''
@@ -146,6 +126,7 @@ class DataExtractor:
                 "player2 tower": player2['tower']
             }
 
+    sumCheck_error = 0 # just for error checking, will print at the end how many times we had a sumCheck error
     @classmethod
     def player_cards_sort(cls, cards, tower):
         sorted_cards = {"evo": [], "hero/champion": [], "normal": [], "tower": tower}
@@ -156,9 +137,13 @@ class DataExtractor:
                 sorted_cards['hero/champion'].append(card['id'])
             else: # regular card
                 sorted_cards['normal'].append(card['id'])
+        sumCheck = 0
         for key in sorted_cards.keys():
             if isinstance(sorted_cards[key], list):
                 sorted_cards[key].sort()
+                sumCheck += len(sorted_cards[key])
+        if sumCheck != 8: # for error checking, makes a lot easier
+            cls.sumCheck_error += 1
         return sorted_cards
         '''
         Important:  Deck can contain, 2 evos 1 hero/champion or 2 heroes/champions and 1 evo
@@ -195,6 +180,7 @@ class DataExtractor:
                 row.update(data)
                 writer.writerow(row)
         print("CSV files created successfully!")
+        print(f"SumCheck errors: {cls.sumCheck_error}" if cls.sumCheck_error > 0 else "No SumCheck errors!")
 
 ''' functions that I was messing around with, does not help us atm
     # not too important, unless we want to do loc based analysis
