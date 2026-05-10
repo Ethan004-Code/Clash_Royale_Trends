@@ -24,3 +24,11 @@ Using the collected and cleaned data, I would analyze it to identify trends in c
 I would compare different decks and cards to determine which effective stratfegies is the current clash royale meta.
 
 For visualization, I will use graghs such as bar charts to display the most used cards and decks, line graghs to show changes and pie charts to represent distribution of card usage.
+
+# Running the Flask Dashboard
+To open the Flask dashboard, first make sure Flask, pandas, and matplotlib are installed.
+From the main project folder, go into the Project folder and run app.py:
+
+cd Project
+python app.py
+After the apps start then it will display dashboards with Clash Royale analysis insights.
