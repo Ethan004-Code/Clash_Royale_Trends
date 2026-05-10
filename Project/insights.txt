@@ -1,0 +1,10 @@
+# Add your custom insights here, one per line
+# These will be displayed on your dashboard
+
+Most top-used decks have win rates slightly above 50%, with minimal variation between them. This suggests that deck choice alone does not create a large competitive advantage, and player skill likely plays a significant role in determining match outcomes.
+
+Top-performing decks consistently include Evolution (Evo) cards and at least one Champion. This indicates that these card types are central to the current meta, and decks lacking them may be at a competitive disadvantage.
+
+Since Evo cards and Champions are key components of top decks—and are typically harder to obtain—new players may find it difficult to build competitive decks early on. This creates a higher barrier to entry in the current meta.
+
+Although Evo cards and Champions appear essential, the relatively similar win rates across decks suggest that no single deck is overwhelmingly dominant. This reinforces the idea that success depends more on player decision-making, strategy, and execution rather than just deck composition.

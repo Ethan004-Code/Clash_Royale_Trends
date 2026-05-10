@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>{{ title }}</h1>
+            <p class="subtitle">Clash Royale Meta Deck Analysis Dashboard</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="section">
+            <h2>Key Insights</h2>
+
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>Total Matches</h3>
+                    <p class="big-text">{{ total_matches }}</p>
+                </div>
+
+                <div class="finding-card">
+                    <h3>Most Used Deck</h3>
+                    <p class="big-text">{{ most_used_card }}</p>
+                </div>
+
+                <div class="finding-card">
+                    <h3>Highest Win Rate</h3>
+                    <p class="big-text">{{ highest_winrate }}</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Top Decks</h2>
+
+            {% if decks %}
+                {% for deck in decks %}
+                    <div class="insight-box">
+                        <h3>{{ deck["Deck"] }}</h3>
+                        <p><strong>Cards:</strong> {{ deck["Cards"] }}</p>
+                        <p><strong>Total Games:</strong> {{ deck["Total Games"] }}</p>
+                        <p><strong>Wins:</strong> {{ deck["Wins"] }}</p>
+                        <p><strong>Losses:</strong> {{ deck["Losses"] }}</p>
+                        <p><strong>Win Rate:</strong> {{ deck["Win Rate"] }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No deck data available.</p>
+            {% endif %}
+        </section>
+
+        <section class="section">
+            <h2>Wins vs Losses for respective Decks</h2>
+
+            {% if plot_url %}
+                <img 
+                    class="chart-img"
+                    src="{{ url_for('static', filename=plot_url) }}" 
+                    alt="Wins vs Losses Chart"
+                >
+            {% else %}
+                <p>No wins/losses chart available.</p>
+            {% endif %}
+        </section>
+
+        <section class="section">
+            <h2>Win/Loss Distribution</h2>
+
+            {% if pie_url %}
+                <img 
+                    class="chart-img"
+                    src="{{ url_for('static', filename=pie_url) }}" 
+                    alt="Win Loss Pie Charts"
+                >
+            {% else %}
+                <p>No pie chart available.</p>
+            {% endif %}
+        </section>
+
+        <section class="section">
+            <h2>Insights</h2>
+
+            {% for insight in insights %}
+            <div class="insight-box">
+                <p>{{ insight }}</p>
+            </div>
+            {% endfor %}
+        </section>
+
+    </main>
+
+</body>
+</html>
